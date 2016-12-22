@@ -502,7 +502,7 @@ const pipe = {
       .pipe(task.wrap.tag.below, dir[3])
       .pipe(plug.gulpIf, !WPK, task.compile.riot())
       .pipe(plug.gulpIf, !WPK, task.minify.js(true))
-      .pipe(plug.gulpIf, !WPK, task.wrap.riot())
+      // .pipe(plug.gulpIf, !WPK, task.wrap.riot())
       .pipe(plug.gulpIf, !WPK, task.wrap.license())
   },
   "sass": function () {
