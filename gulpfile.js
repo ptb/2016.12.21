@@ -281,7 +281,7 @@ const opts = new function () {
 
 const task = {
   "build": function (done) {
-    proc.execSync(`bundle exec middleman build -e ${opts.env}`, {
+    proc.execSync(`bundle exec middleman serve -e ${opts.env}`, {
       "stdio": "inherit"
     })
     done()
