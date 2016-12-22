@@ -52,7 +52,6 @@ const opts = new function () {
         "transform-regenerator"]
     },
     "browserSync": {
-      "files": path.join(OUT, "**", "*"),
       "https": {
         "cert": "localhost.crt",
         "key": "localhost.key"
