@@ -1,10 +1,10 @@
 /* Riot v3.0.5, @license MIT */
 (function (global, factory) {
   typeof exports === "object" && typeof module !== "undefined" ? factory(
-      exports) :
-    typeof define === "function" && define.amd ? define(["exports"],
-      factory) :
-    factory(global.riot = global.riot || {})
+        exports) :
+      typeof define === "function" && define.amd ? define(["exports"],
+        factory) :
+      factory(global.riot = global.riot || {})
 }(this, function (exports) {
   var __TAGS_CACHE = []
   var __TAG_IMPL = {}
@@ -19,112 +19,112 @@
   var XLINK_REGEX = /^xlink:(\w+)/
   var WIN = typeof window === T_UNDEF ? undefined : window
   var RE_SPECIAL_TAGS =
-    /^(?:t(?:body|head|foot|[rhd])|caption|col(?:group)?|opt(?:ion|group))$/
+        /^(?:t(?:body|head|foot|[rhd])|caption|col(?:group)?|opt(?:ion|group))$/
   var RE_SPECIAL_TAGS_NO_OPTION =
-    /^(?:t(?:body|head|foot|[rhd])|caption|col(?:group)?)$/
+        /^(?:t(?:body|head|foot|[rhd])|caption|col(?:group)?)$/
   var RE_RESERVED_NAMES =
-    /^(?:_(?:item|id|parent)|update|root|(?:un)?mount|mixin|is(?:Mounted|Loop)|tags|refs|parent|opts|trigger|o(?:n|ff|ne))$/
+        /^(?:_(?:item|id|parent)|update|root|(?:un)?mount|mixin|is(?:Mounted|Loop)|tags|refs|parent|opts|trigger|o(?:n|ff|ne))$/
   var RE_SVG_TAGS =
-    /^(altGlyph|animate(?:Color)?|circle|clipPath|defs|ellipse|fe(?:Blend|ColorMatrix|ComponentTransfer|Composite|ConvolveMatrix|DiffuseLighting|DisplacementMap|Flood|GaussianBlur|Image|Merge|Morphology|Offset|SpecularLighting|Tile|Turbulence)|filter|font|foreignObject|g(?:lyph)?(?:Ref)?|image|line(?:arGradient)?|ma(?:rker|sk)|missing-glyph|path|pattern|poly(?:gon|line)|radialGradient|rect|stop|svg|switch|symbol|text(?:Path)?|tref|tspan|use)$/
+        /^(altGlyph|animate(?:Color)?|circle|clipPath|defs|ellipse|fe(?:Blend|ColorMatrix|ComponentTransfer|Composite|ConvolveMatrix|DiffuseLighting|DisplacementMap|Flood|GaussianBlur|Image|Merge|Morphology|Offset|SpecularLighting|Tile|Turbulence)|filter|font|foreignObject|g(?:lyph)?(?:Ref)?|image|line(?:arGradient)?|ma(?:rker|sk)|missing-glyph|path|pattern|poly(?:gon|line)|radialGradient|rect|stop|svg|switch|symbol|text(?:Path)?|tref|tspan|use)$/
   var RE_HTML_ATTRS = /([-\w]+) ?= ?(?:"([^"]*)|'([^']*)|({[^}]*}))/g
   var CASE_SENSITIVE_ATTRIBUTES = {
     "viewbox": "viewBox"
   }
   var RE_BOOL_ATTRS =
-    /^(?:disabled|checked|readonly|required|allowfullscreen|auto(?:focus|play)|compact|controls|default|formnovalidate|hidden|ismap|itemscope|loop|multiple|muted|no(?:resize|shade|validate|wrap)?|open|reversed|seamless|selected|sortable|truespeed|typemustmatch)$/
+        /^(?:disabled|checked|readonly|required|allowfullscreen|auto(?:focus|play)|compact|controls|default|formnovalidate|hidden|ismap|itemscope|loop|multiple|muted|no(?:resize|shade|validate|wrap)?|open|reversed|seamless|selected|sortable|truespeed|typemustmatch)$/
   var IE_VERSION = (WIN && WIN.document || {})
-    .documentMode | 0
+        .documentMode | 0
 
-  /**
-   * Check whether a DOM node must be considered a part of an svg document
-   * @param   { String } name -
-   * @returns { Boolean } -
-   */
+      /**
+       * Check whether a DOM node must be considered a part of an svg document
+       * @param   { String } name -
+       * @returns { Boolean } -
+       */
   function isSVGTag (name) {
     return RE_SVG_TAGS.test(name)
   }
 
-  /**
-   * Check Check if the passed argument is undefined
-   * @param   { String } value -
-   * @returns { Boolean } -
-   */
+      /**
+       * Check Check if the passed argument is undefined
+       * @param   { String } value -
+       * @returns { Boolean } -
+       */
   function isBoolAttr (value) {
     return RE_BOOL_ATTRS.test(value)
   }
 
-  /**
-   * Check if passed argument is a function
-   * @param   { * } value -
-   * @returns { Boolean } -
-   */
+      /**
+       * Check if passed argument is a function
+       * @param   { * } value -
+       * @returns { Boolean } -
+       */
   function isFunction (value) {
     return typeof value === T_FUNCTION || false // avoid IE problems
   }
 
-  /**
-   * Check if passed argument is an object, exclude null
-   * NOTE: use isObject(x) && !isArray(x) to excludes arrays.
-   * @param   { * } value -
-   * @returns { Boolean } -
-   */
+      /**
+       * Check if passed argument is an object, exclude null
+       * NOTE: use isObject(x) && !isArray(x) to excludes arrays.
+       * @param   { * } value -
+       * @returns { Boolean } -
+       */
   function isObject (value) {
     return value && typeof value === T_OBJECT // typeof null is 'object'
   }
 
-  /**
-   * Check if passed argument is undefined
-   * @param   { * } value -
-   * @returns { Boolean } -
-   */
+      /**
+       * Check if passed argument is undefined
+       * @param   { * } value -
+       * @returns { Boolean } -
+       */
   function isUndefined (value) {
     return typeof value === T_UNDEF
   }
 
-  /**
-   * Check if passed argument is a string
-   * @param   { * } value -
-   * @returns { Boolean } -
-   */
+      /**
+       * Check if passed argument is a string
+       * @param   { * } value -
+       * @returns { Boolean } -
+       */
   function isString (value) {
     return typeof value === T_STRING
   }
 
-  /**
-   * Check if passed argument is empty. Different from falsy, because we dont consider 0 or false to be blank
-   * @param { * } value -
-   * @returns { Boolean } -
-   */
+      /**
+       * Check if passed argument is empty. Different from falsy, because we dont consider 0 or false to be blank
+       * @param { * } value -
+       * @returns { Boolean } -
+       */
   function isBlank (value) {
     return isUndefined(value) || value === null || value === ""
   }
 
-  /**
-   * Check if passed argument is a kind of array
-   * @param   { * } value -
-   * @returns { Boolean } -
-   */
+      /**
+       * Check if passed argument is a kind of array
+       * @param   { * } value -
+       * @returns { Boolean } -
+       */
   function isArray (value) {
     return Array.isArray(value) || value instanceof Array
   }
 
-  /**
-   * Check whether object's property could be overridden
-   * @param   { Object }  obj - source object
-   * @param   { String }  key - object property
-   * @returns { Boolean } -
-   */
+      /**
+       * Check whether object's property could be overridden
+       * @param   { Object }  obj - source object
+       * @param   { String }  key - object property
+       * @returns { Boolean } -
+       */
   function isWritable (obj, key) {
     var descriptor = Object.getOwnPropertyDescriptor(obj, key)
 
     return isUndefined(obj[key]) || descriptor && descriptor.writable
   }
 
-  /**
-   * Check if passed argument is a reserved name
-   * @param   { String } value -
-   * @returns { Boolean } -
-   */
+      /**
+       * Check if passed argument is a reserved name
+       * @param   { String } value -
+       * @returns { Boolean } -
+       */
   function isReservedName (value) {
     return RE_RESERVED_NAMES.test(value)
   }
@@ -142,67 +142,67 @@
     isReservedName
   })
 
-  /**
-   * Shorter and fast way to select multiple nodes in the DOM
-   * @param   { String } selector - DOM selector
-   * @param   { Object } ctx - DOM node where the targets of our search will is located
-   * @returns { Object } dom nodes found
-   */
+      /**
+       * Shorter and fast way to select multiple nodes in the DOM
+       * @param   { String } selector - DOM selector
+       * @param   { Object } ctx - DOM node where the targets of our search will is located
+       * @returns { Object } dom nodes found
+       */
   function $$ (selector, ctx) {
     return (ctx || document)
-      .querySelectorAll(selector)
+          .querySelectorAll(selector)
   }
 
-  /**
-   * Shorter and fast way to select a single node in the DOM
-   * @param   { String } selector - unique dom selector
-   * @param   { Object } ctx - DOM node where the target of our search will is located
-   * @returns { Object } dom node found
-   */
+      /**
+       * Shorter and fast way to select a single node in the DOM
+       * @param   { String } selector - unique dom selector
+       * @param   { Object } ctx - DOM node where the target of our search will is located
+       * @returns { Object } dom node found
+       */
   function $ (selector, ctx) {
     return (ctx || document)
-      .querySelector(selector)
+          .querySelector(selector)
   }
 
-  /**
-   * Create a document fragment
-   * @returns { Object } document fragment
-   */
+      /**
+       * Create a document fragment
+       * @returns { Object } document fragment
+       */
   function createFrag () {
     return document.createDocumentFragment()
   }
 
-  /**
-   * Create a document text node
-   * @returns { Object } create a text node to use as placeholder
-   */
+      /**
+       * Create a document text node
+       * @returns { Object } create a text node to use as placeholder
+       */
   function createDOMPlaceholder () {
     return document.createTextNode("")
   }
 
-  /**
-   * Create a generic DOM node
-   * @param   { String } name - name of the DOM node we want to create
-   * @param   { Boolean } isSvg - should we use a SVG as parent node?
-   * @returns { Object } DOM node just created
-   */
+      /**
+       * Create a generic DOM node
+       * @param   { String } name - name of the DOM node we want to create
+       * @param   { Boolean } isSvg - should we use a SVG as parent node?
+       * @returns { Object } DOM node just created
+       */
   function mkEl (name, isSvg) {
     return isSvg ?
-      document.createElementNS("http://www.w3.org/2000/svg", "svg") :
-      document.createElement(name)
+          document.createElementNS("http://www.w3.org/2000/svg", "svg") :
+          document.createElement(name)
   }
 
-  /**
-   * Get the outer html of any DOM node SVGs included
-   * @param   { Object } el - DOM node to parse
-   * @returns { String } el.outerHTML
-   */
+      /**
+       * Get the outer html of any DOM node SVGs included
+       * @param   { Object } el - DOM node to parse
+       * @returns { String } el.outerHTML
+       */
   function getOuterHTML (el) {
     if (el.outerHTML) {
       return el.outerHTML
     }
 
-    // some browsers do not support outerHTML on the SVGs tags
+        // some browsers do not support outerHTML on the SVGs tags
     else {
       var container = mkEl("div")
 
@@ -211,52 +211,52 @@
     }
   }
 
-  /**
-   * Set the inner html of any DOM node SVGs included
-   * @param { Object } container - DOM node where we'll inject new html
-   * @param { String } html - html to inject
-   */
+      /**
+       * Set the inner html of any DOM node SVGs included
+       * @param { Object } container - DOM node where we'll inject new html
+       * @param { String } html - html to inject
+       */
   function setInnerHTML (container, html) {
     if (!isUndefined(container.innerHTML)) {
       container.innerHTML = html
     }
 
-    // some browsers do not support innerHTML on the SVGs tags
+        // some browsers do not support innerHTML on the SVGs tags
     else {
       var doc = new DOMParser()
-        .parseFromString(html, "application/xml")
+            .parseFromString(html, "application/xml")
       var node = container.ownerDocument.importNode(doc.documentElement,
-        true)
+            true)
 
       container.appendChild(node)
     }
   }
 
-  /**
-   * Remove any DOM attribute from a node
-   * @param   { Object } dom - DOM node we want to update
-   * @param   { String } name - name of the property we want to remove
-   */
+      /**
+       * Remove any DOM attribute from a node
+       * @param   { Object } dom - DOM node we want to update
+       * @param   { String } name - name of the property we want to remove
+       */
   function remAttr (dom, name) {
     dom.removeAttribute(name)
   }
 
-  /**
-   * Get the value of any DOM attribute on a node
-   * @param   { Object } dom - DOM node we want to parse
-   * @param   { String } name - name of the attribute we want to get
-   * @returns { String | undefined } name of the node attribute whether it exists
-   */
+      /**
+       * Get the value of any DOM attribute on a node
+       * @param   { Object } dom - DOM node we want to parse
+       * @param   { String } name - name of the attribute we want to get
+       * @returns { String | undefined } name of the node attribute whether it exists
+       */
   function getAttr (dom, name) {
     return dom.getAttribute(name)
   }
 
-  /**
-   * Set any DOM attribute
-   * @param { Object } dom - DOM node we want to update
-   * @param { String } name - name of the property we want to set
-   * @param { String } val - value of the property we want to set
-   */
+      /**
+       * Set any DOM attribute
+       * @param { Object } dom - DOM node we want to update
+       * @param { String } name - name of the property we want to set
+       * @param { String } val - value of the property we want to set
+       */
   function setAttr (dom, name, val) {
     var xlink = XLINK_REGEX.exec(name)
 
@@ -267,21 +267,21 @@
     }
   }
 
-  /**
-   * Insert safely a tag to fix #1962 #1649
-   * @param   { HTMLElement } root - children container
-   * @param   { HTMLElement } curr - node to insert
-   * @param   { HTMLElement } next - node that should preceed the current node inserted
-   */
+      /**
+       * Insert safely a tag to fix #1962 #1649
+       * @param   { HTMLElement } root - children container
+       * @param   { HTMLElement } curr - node to insert
+       * @param   { HTMLElement } next - node that should preceed the current node inserted
+       */
   function safeInsert (root, curr, next) {
     root.insertBefore(curr, next.parentNode && next)
   }
 
-  /**
-   * Minimize risk: only zero or one _space_ between attr & value
-   * @param   { String }   html - html string we want to parse
-   * @param   { Function } fn - callback function to apply on any attribute found
-   */
+      /**
+       * Minimize risk: only zero or one _space_ between attr & value
+       * @param   { String }   html - html string we want to parse
+       * @param   { Function } fn - callback function to apply on any attribute found
+       */
   function walkAttrs (html, fn) {
     if (!html) {
       return
@@ -293,18 +293,18 @@
     }
   }
 
-  /**
-   * Walk down recursively all the children tags starting dom node
-   * @param   { Object }   dom - starting node where we will start the recursion
-   * @param   { Function } fn - callback to transform the child node just found
-   * @param   { Object }   context - fn can optionally return an object, which is passed to children
-   */
+      /**
+       * Walk down recursively all the children tags starting dom node
+       * @param   { Object }   dom - starting node where we will start the recursion
+       * @param   { Function } fn - callback to transform the child node just found
+       * @param   { Object }   context - fn can optionally return an object, which is passed to children
+       */
   function walkNodes (dom, fn, context) {
     if (dom) {
       var res = fn(dom, context)
       var next
 
-      // stop the recursion
+          // stop the recursion
 
       if (res === false) {
         return
@@ -342,15 +342,15 @@
   var remainder = []
   var needsInject = false
 
-  // skip the following code on the server
+      // skip the following code on the server
   if (WIN) {
     styleNode = (function () {
-      // create a new style element with the correct type
+          // create a new style element with the correct type
       var newNode = mkEl("style")
 
       setAttr(newNode, "type", "text/css")
 
-      // replace any user node or insert the new one into the head
+          // replace any user node or insert the new one into the head
       var userNode = $("style[type=riot]")
 
       if (userNode) {
@@ -360,7 +360,7 @@
         userNode.parentNode.replaceChild(newNode, userNode)
       } else {
         document.getElementsByTagName("head")[0].appendChild(
-          newNode)
+              newNode)
       }
 
       return newNode
@@ -368,17 +368,17 @@
     cssTextProp = styleNode.styleSheet
   }
 
-  /**
-   * Object that will be used to inject and manage the css of every tag instance
-   */
+      /**
+       * Object that will be used to inject and manage the css of every tag instance
+       */
   var styleManager = {
     styleNode,
 
-    /**
-     * Save a tag style to be later injected into DOM
-     * @param { String } css - css string
-     * @param { String } name - if it's passed we will map the css to a tagname
-     */
+        /**
+         * Save a tag style to be later injected into DOM
+         * @param { String } css - css string
+         * @param { String } name - if it's passed we will map the css to a tagname
+         */
     "add": function add (css, name) {
       if (name) {
         byName[name] = css
@@ -388,21 +388,21 @@
       needsInject = true
     },
 
-    /**
-     * Inject all previously saved tag styles into DOM
-     * innerHTML seems slow: http://jsperf.com/riot-insert-style
-     */
+        /**
+         * Inject all previously saved tag styles into DOM
+         * innerHTML seems slow: http://jsperf.com/riot-insert-style
+         */
     "inject": function inject () {
       if (!WIN || !needsInject) {
         return
       }
       needsInject = false
       var style = Object.keys(byName)
-        .map(function (k) {
-          return byName[k]
-        })
-        .concat(remainder)
-        .join("\n")
+            .map(function (k) {
+              return byName[k]
+            })
+            .concat(remainder)
+            .join("\n")
 
       if (cssTextProp) {
         cssTextProp.cssText = style
@@ -412,20 +412,20 @@
     }
   }
 
-  /**
-   * The riot template engine
-   * @version v3.0.1
-   */
-  /**
-   * riot.util.brackets
-   *
-   * - `brackets    ` - Returns a string or regex based on its parameter
-   * - `brackets.set` - Change the current riot brackets
-   *
-   * @module
-   */
+      /**
+       * The riot template engine
+       * @version v3.0.1
+       */
+      /**
+       * riot.util.brackets
+       *
+       * - `brackets    ` - Returns a string or regex based on its parameter
+       * - `brackets.set` - Change the current riot brackets
+       *
+       * @module
+       */
 
-  /* global riot */
+      /* global riot */
 
   var brackets = (function (UNDEF) {
     var
@@ -434,9 +434,10 @@
       R_MLCOMMS = /\/\*[^*]*\*+(?:[^*\/][^*]*\*+)*\//g,
 
       R_STRINGS =
-      /"[^"\\]*(?:\\[\S\s][^"\\]*)*"|'[^'\\]*(?:\\[\S\s][^'\\]*)*'/g,
+          /"[^"\\]*(?:\\[\S\s][^"\\]*)*"|'[^'\\]*(?:\\[\S\s][^'\\]*)*'/g,
 
-      S_QBLOCKS = `${R_STRINGS.source}|${
+      S_QBLOCKS =
+          `${R_STRINGS.source}|${
       (/(?:\breturn\s+|(?:[$\w\)\]]|\+\+|--)\s*(\/)(?![*\/]))/).source
       }|${
       (/\/(?=[^*\/])[^[\/\\]*(?:(?:\[(?:\\.|[^\]\\]*)*\]|\\.)[^[\/\\]*)*?(\/)[gim]*/)
@@ -481,9 +482,9 @@
         bp = _cache
       }
       return new RegExp(
-        re.source.replace(/{/g, bp[2])
-        .replace(/}/g, bp[3]), re.global ? REGLOB : ""
-      )
+            re.source.replace(/{/g, bp[2])
+            .replace(/}/g, bp[3]), re.global ? REGLOB : ""
+          )
     }
 
     function _create (pair) {
@@ -497,26 +498,28 @@
         throw new Error(`Unsupported brackets "${pair}"`)
       }
       arr = arr.concat(pair.replace(NEED_ESCAPE, "\\")
-        .split(" "))
+            .split(" "))
 
       arr[4] = _rewrite(arr[1].length > 1 ? /{[\S\s]*?}/ : _pairs[4],
-        arr)
+            arr)
       arr[5] = _rewrite(pair.length > 3 ? /\\({|})/g : _pairs[5],
-        arr)
+            arr)
       arr[6] = _rewrite(_pairs[6], arr)
-      arr[7] = RegExp(`\\\\(${arr[3]})|([[({])|(${arr[3]
-        })|${S_QBLOCKS}`, REGLOB)
+      arr[7] = RegExp(
+            `\\\\(${arr[3]})|([[({])|(${arr[3]
+        })|${S_QBLOCKS}`,
+            REGLOB)
       arr[8] = pair
       return arr
     }
 
     function _brackets (reOrIdx) {
       return reOrIdx instanceof RegExp ? _regex(reOrIdx) : _cache[
-        reOrIdx]
+            reOrIdx]
     }
 
     _brackets.split = function split (str, tmpl, _bp) {
-      // istanbul ignore next: _bp is for the compiler
+          // istanbul ignore next: _bp is for the compiler
       if (!_bp) {
         _bp = _cache
       }
@@ -575,7 +578,7 @@
         ix = 1
         while (match = recch.exec(s)) {
           if (match[1] &&
-            !(match[1] === ch ? ++ix : --ix)) {
+                !(match[1] === ch ? ++ix : --ix)) {
             break
           }
         }
@@ -590,13 +593,11 @@
     _brackets.loopKeys = function loopKeys (expr) {
       var m = expr.match(_cache[9])
 
-      return m ?
-      {
+      return m ? {
         "key": m[1],
         "pos": m[2],
         "val": _cache[0] + m[3].trim() + _cache[1]
-      } :
-      {
+      } : {
         "val": expr.trim()
       }
     }
@@ -637,9 +638,9 @@
       }
     })
 
-    /* istanbul ignore next: in the browser riot is always in the scope */
+        /* istanbul ignore next: in the browser riot is always in the scope */
     _brackets.settings = typeof riot !== "undefined" && riot.settings ||
-      {}
+          {}
     _brackets.set = _reset
 
     _brackets.R_STRINGS = R_STRINGS
@@ -649,13 +650,13 @@
     return _brackets
   })()
 
-  /**
-   * @module tmpl
-   *
-   * tmpl          - Root function, returns the template value, render with data
-   * tmpl.hasExpr  - Test the existence of a expression inside a string
-   * tmpl.loopKeys - Get the keys for an 'each' loop (used by `_each`)
-   */
+      /**
+       * @module tmpl
+       *
+       * tmpl          - Root function, returns the template value, render with data
+       * tmpl.hasExpr  - Test the existence of a expression inside a string
+       * tmpl.loopKeys - Get the keys for an 'each' loop (used by `_each`)
+       */
 
   var tmpl = (function () {
     var _cache = {}
@@ -666,14 +667,14 @@
       }
 
       return (_cache[str] || (_cache[str] = _create(str)))
-        .call(data, _logErr)
+                .call(data, _logErr)
     }
 
     _tmpl.hasExpr = brackets.hasExpr
 
     _tmpl.loopKeys = brackets.loopKeys
 
-    // istanbul ignore next
+            // istanbul ignore next
     _tmpl.clearCache = function () {
       _cache = {}
     }
@@ -689,13 +690,13 @@
       if (_tmpl.errorHandler) {
         _tmpl.errorHandler(err)
       } else if (
-        typeof console !== "undefined" &&
-        typeof console.error === "function"
-      ) {
+                typeof console !== "undefined" &&
+                typeof console.error === "function"
+              ) {
         if (err.riotData.tagName) {
           console.error(
-            "Riot template error thrown in the <%s> tag", err.riotData
-            .tagName.toLowerCase())
+                    "Riot template error thrown in the <%s> tag", err.riotData
+                    .tagName.toLowerCase())
         }
         console.error(err)
       }
@@ -714,7 +715,7 @@
     var
       CH_IDEXPR = String.fromCharCode(0x2057),
       RE_CSNAME =
-      /^(?:(-?[_A-Za-z\xA0-\xFF][-\w\xA0-\xFF]*)|\u2057(\d+)~):/,
+              /^(?:(-?[_A-Za-z\xA0-\xFF][-\w\xA0-\xFF]*)|\u2057(\d+)~):/,
       RE_QBLOCK = RegExp(brackets.S_QBLOCKS, "g"),
       RE_DQUOTE = /\u2057/g,
       RE_QBMARK = /\u2057(\d+)~/g
@@ -733,23 +734,23 @@
 
           if (expr && (expr = i & 1
 
-              ?
-              _parseExpr(expr, 1, qstr)
+                      ?
+                      _parseExpr(expr, 1, qstr)
 
-              :
-              `"${expr
+                      :
+                      `"${expr
               .replace(/\\/g, "\\\\")
               .replace(/\r\n?|\n/g, "\\n")
               .replace(/"/g, '\\"')
               }"`
 
-            )) {
+                    )) {
             list[j++] = expr
           }
         }
 
         expr = j < 2 ? list[0] :
-          `[${list.join(",")}].join("")`
+                  `[${list.join(",")}].join("")`
       } else {
         expr = _parseExpr(parts[1], 0, qstr)
       }
@@ -757,29 +758,30 @@
       if (qstr[0]) {
         expr = expr.replace(RE_QBMARK, function (_, pos) {
           return qstr[pos]
-            .replace(/\r/g, "\\r")
-            .replace(/\n/g, "\\n")
+                    .replace(/\r/g, "\\r")
+                    .replace(/\n/g, "\\n")
         })
       }
       return expr
     }
 
     var
-      RE_BREND = {
-        "(": /[()]/g,
-        "[": /[[\]]/g,
-        "{": /[{}]/g
-      }
+              RE_BREND = {
+                "(": /[()]/g,
+                "[": /[[\]]/g,
+                "{": /[{}]/g
+              }
 
     function _parseExpr (expr, asText, qstr) {
       expr = expr
-        .replace(RE_QBLOCK, function (s, div) {
-          return s.length > 2 && !div ? `${CH_IDEXPR + (qstr.push(s) -
+                .replace(RE_QBLOCK, function (s, div) {
+                  return s.length > 2 && !div ?
+                    `${CH_IDEXPR + (qstr.push(s) -
             1)}~` : s
-        })
-        .replace(/\s+/g, " ")
-        .trim()
-        .replace(/\ ?([[\({},?\.:])\ ?/g, "$1")
+                })
+                .replace(/\s+/g, " ")
+                .trim()
+                .replace(/\ ?([[\({},?\.:])\ ?/g, "$1")
 
       if (expr) {
         var
@@ -788,9 +790,9 @@
           match
 
         while (expr &&
-          (match = expr.match(RE_CSNAME)) &&
-          !match.index
-        ) {
+                  (match = expr.match(RE_CSNAME)) &&
+                  !match.index
+                ) {
           var
             key,
             jsb,
@@ -798,8 +800,8 @@
 
           expr = RegExp.rightContext
           key = match[2] ? qstr[match[2]].slice(1, -1)
-            .trim()
-            .replace(/\s+/g, " ") : match[1]
+                    .trim()
+                    .replace(/\s+/g, " ") : match[1]
 
           while (jsb = (match = re.exec(expr))[1]) {
             skipBraces(jsb, re)
@@ -812,8 +814,8 @@
         }
 
         expr = !cnt ? _wrapExpr(expr, asText) :
-          cnt > 1 ? `[${list.join(",")}].join(" ").trim()` :
-          list[0]
+                  cnt > 1 ? `[${list.join(",")}].join(" ").trim()` :
+                  list[0]
       }
       return expr
 
@@ -835,28 +837,29 @@
       }
     }
 
-    // istanbul ignore next: not both
+            // istanbul ignore next: not both
     var // eslint-disable-next-line max-len
-      JS_CONTEXT = `"in this?this:${typeof window !== "object" ?
+      JS_CONTEXT =
+              `"in this?this:${typeof window !== "object" ?
         "global" : "window"}).`,
       JS_VARNAME =
-      /[,{][\$\w]+(?=:)|(^ *|[^$\w\.{])(?!(?:typeof|true|false|null|undefined|in|instanceof|is(?:Finite|NaN)|void|NaN|new|Date|RegExp|Math)(?![$\w]))([$_A-Za-z][$\w]*)/g,
+              /[,{][\$\w]+(?=:)|(^ *|[^$\w\.{])(?!(?:typeof|true|false|null|undefined|in|instanceof|is(?:Finite|NaN)|void|NaN|new|Date|RegExp|Math)(?![$\w]))([$_A-Za-z][$\w]*)/g,
       JS_NOPROPS = /^(?=(\.[$\w]+))\1(?:[^.[(]|$)/
 
     function _wrapExpr (expr, asText, key) {
       var tb
 
       expr = expr.replace(JS_VARNAME, function (match, p, mvar, pos,
-        s) {
+                s) {
         if (mvar) {
           pos = tb ? 0 : pos + match.length
 
           if (mvar !== "this" && mvar !== "global" && mvar !==
-            "window") {
+                    "window") {
             match = `${p}("${mvar}${JS_CONTEXT}${mvar}`
             if (pos) {
               tb = (s = s[pos]) === "." || s === "(" || s ===
-                "["
+                        "["
             }
           } else if (pos) {
             tb = !JS_NOPROPS.test(s.slice(pos))
@@ -870,7 +873,8 @@
       }
 
       if (key) {
-        expr = `${tb ?
+        expr =
+                  `${tb ?
           `function(){${expr}}.call(this)` : `(${expr
           })`
           }?"${key}":""`
