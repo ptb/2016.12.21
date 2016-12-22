@@ -60,6 +60,14 @@ const opts = new function () {
       "logConnections": true,
       "notify": false,
       "open": false,
+      "plugins": [
+        {
+          "module": "riot-hot-reload",
+          "options": {
+            "files": path.join(TMP, "**", "*.js")
+          }
+        }
+      ],
       "reloadDebounce": 100,
       "reloadOnRestart": true,
       "server": {
