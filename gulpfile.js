@@ -63,7 +63,7 @@ const opts = new function () {
         {
           "module": "riot-hot-reload",
           "options": {
-            "files": path.join(TMP, "**", "*.js")
+            "files": path.join(OUT, "**", "*.js")
           }
         }
       ],
