@@ -5,7 +5,9 @@
   },
   "dependencies": {},
   "description": "web project template",
-  "devDependencies": {},
+  "devDependencies": {
+    "kexec": "^3.0.0"
+  },
   "homepage": "https://github.com/ptb/2016.12.21#readme",
   "license": "Apache-2.0",
   "name": "2016.12.21",
